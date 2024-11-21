@@ -6,7 +6,7 @@
 /*   By: araveala <araveala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 16:29:40 by araveala          #+#    #+#             */
-/*   Updated: 2024/11/21 18:53:44 by araveala         ###   ########.fr       */
+/*   Updated: 2024/11/21 20:28:26 by araveala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ void Contacts::set_secret(std:: string input) {
 
 void Contacts::get_contact()
 {
-	std::cout << m_firstname << std::endl;
-	std::cout << m_lastname << std::endl;
-	std::cout << m_nickname << std::endl;
-	std::cout << m_phonenumber << std::endl;
-	std::cout << m_secret << std::endl;
+	std::cout << "Firstname: " << m_firstname << std::endl;
+	std::cout << "Lastname: " << m_lastname << std::endl;
+	std::cout << "Nickname: " << m_nickname << std::endl;
+	std::cout << "Phonenumber: " << m_phonenumber << std::endl;
+	std::cout << "Deepest darkest secret: " << m_secret << std::endl;
 }
 
 std::string Contacts::formatField(std::string& field)
@@ -59,7 +59,7 @@ std::string Contacts::formatField(std::string& field)
 void	Contacts::formatContact(int i)
 {
 	std::ostringstream formattedString;
-	formattedString << std::setw(10) << std::right << i << "|"
+	formattedString << std::setw(10) << std::right << i + 1 << "|"
 	<< std::setw(10) << std::right << formatField(m_firstname) << "|"
 	<< std::setw(10) << std::right << formatField(m_lastname) << "|"
 	<< std::setw(10) << std::right << formatField(m_nickname);
