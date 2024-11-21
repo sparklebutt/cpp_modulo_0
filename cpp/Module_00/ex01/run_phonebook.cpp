@@ -6,63 +6,57 @@
 /*   By: araveala <araveala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 16:32:21 by araveala          #+#    #+#             */
-/*   Updated: 2024/11/12 17:20:03 by araveala         ###   ########.fr       */
+/*   Updated: 2024/11/21 19:36:24 by araveala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream> // put it in header file
 #include <string>
 #include <cstdlib>
+#include "Contacts.hpp"
+#include "PhoneBook.hpp"
 
-void	clear_output()
+void	addcontact(PhoneBook& phonebook)
 {
-	std::system("clear");
+	//crceating an instance of contact class
+	Contacts contact;
+	std::string input;
+	std::cout<<"enter first name: "<<std::endl;	
+	std:: getline(std::cin, input);
+	contact.set_firstname(input);
+	
+	std::cout<<"enter last name: "<<std::endl;
+	std:: getline(std::cin, input);
+	contact.set_lastname(input);
+	
+	std::cout<<"enter nickname: "<<std::endl;	
+	std:: getline(std::cin, input);
+	contact.set_nickname(input);
+	
+	std::cout<<"enter phonenumber: "<<std::endl;
+	std:: getline(std::cin, input);
+	contact.set_phonenumber(input);
+	
+	std::cout<<"enter deepest darkest secret: "<<std::endl;
+	std:: getline(std::cin, input);
+	contact.set_secret(input);
+	//check details are valid		
+	phonebook.addtoPhoneBook(contact);
+	
 }
 
-void	print_options()
+void	searchContact(PhoneBook& phonebook)
 {
-	std::cout<<"Welcome to the phonebook menu, your options are as follows:\n";
-	std::cout<<"ADD to add contact information to phonebook\n";
-	std::cout<<"SEARCH to search through the phonebook for a contact using index number (max 9)\n";
-	std::cout<<"EXIT to exit the phonebook and loose all data\n";
-	std::cout<<"What would you like to do: ";
-}
+	int num = 0;
+	std::string input;
+	phonebook.listAllContacts();
+	std::cout<<"index : \n";
+	std:: getline(std:: cin, input);
+	std::cout<<num<<std::endl;
+	num = std:: stoi(input);
+	clear_output();
+	Contacts& contact = phonebook.get_array(num);
+	printf("_________\n");
+	contact.get_contact();
 
-int	main()
-{
-	int fun = 0;
-	std:: string option;
-	while (1)
-	{		
-		print_options();
-		std:: getline(std::cin, option);
-		clear_output();
-		if (option == "ADD")
-		{
-			printf("testing ADD\n");
-			// we go to function that adds contact details
-		}
-		else if (option == "SEARCH")
-		{
-			printf("testing SEARCH");
-			// we search through the phone book func
-		}
-		else if (option == "EXIT")
-		{
-			std::cout<<"All data has been wiped"<<std::endl;
-			return 0; // so we can quit ? maybe free??
-		}
-		else // error handling function 
-		{
-			fun++;
-			if (fun > 3)
-			{ //lol factor maybe no smart
-				std::cout<<"INPUT ERROR: pay better attention to the options menu!!"<<std::endl;
-				fun = 0;
-			}
-			else
-				std::cout<<"Input error: please read your options again"<<std::endl;
-		}		
-	}
-	return 0;
 }
