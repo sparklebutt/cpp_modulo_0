@@ -6,40 +6,71 @@
 /*   By: araveala <araveala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 16:17:19 by araveala          #+#    #+#             */
-/*   Updated: 2024/11/21 17:47:32 by araveala         ###   ########.fr       */
+/*   Updated: 2024/11/27 15:59:24 by araveala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string>
-#include <cstdlib>
 #include "Contacts.hpp"
 #include "PhoneBook.hpp"
 
-void	clear_output()
+#include <csignal>
+#include <cstdlib>
+
+void	checkStream()
 {
-	std::system("clear");
+	if (std::cin.eof())
+		exit(0);
 }
+
+void	checkSignal(int sig)
+{
+	if (sig == SIGINT)
+		std::cout<<"Cntrl c handled, closing phonebook"<<std::endl;
+	else if (sig == SIGTERM)
+		std::cout<<"Handled this too smarty pants, closing phonebook"<<std::endl;
+	exit(0);
+}
+
+void	clear_output() {std::system("clear");}
 
 void	print_options()
 {
-	std::cout<<"Welcome to the phonebook menu, your options are as follows:\n";
-	std::cout<<"ADD to add contact information to phonebook\n";
-	std::cout<<"SEARCH to search through the phonebook for a contact using index number (max 8)\n";
-	std::cout<<"EXIT to exit the phonebook and loose all data\n";
-	std::cout<<"What would you like to do: \n";
+	std::cout<<"Welcome to the phonebook menu, your options are as follows:"<<std::endl;
+	std::cout<<"ADD to add contact information to phonebook, can not be empty"<<std::endl;
+	std::cout<<"SEARCH to search through the phonebook for a contact using index number (max 8)"<<std::endl;
+	std::cout<<"EXIT to exit the phonebook and loose all data"<<std::endl;
+	std::cout<<"What would you like to do: "<<std::endl;
+}
+
+void	print_err(int &fun)
+{
+	fun++;
+	if (fun > 5)
+	{
+		std::cerr<<"\033[31m"<<"INPUT ERROR: pay better attention to the options menu!!"<<"\033[0m"<<std::endl;
+		fun = 0;
+		return;
+	}
+	if (fun > 3)
+	{
+		std::cerr<<"INPUT ERROR: pay better attention to the options menu!!"<<std::endl;
+		return ;
+	}
+	std::cerr<<"Input error: please read your options again"<<std::endl;
 }
 
 int	main()
 {
 	int fun = 0;
 	std:: string option;
-	std:: string input;
+	std::signal(SIGINT, checkSignal);
+	std::signal(SIGTERM, checkSignal);
 	PhoneBook phonebook;
-
 	while (1)
-	{		
+	{
 		print_options();
 		std:: getline(std::cin, option);
+		checkStream();
 		clear_output();
 		if (option == "ADD")
 			addcontact(phonebook);
@@ -47,19 +78,8 @@ int	main()
 			searchContact(phonebook);
 		else if (option == "EXIT")
 			return 0;
-
-		else // error handling function 
-		{
-			fun++;
-			if (fun > 3)
-			{ //lol factor maybe no smart
-				std::cout<<"INPUT ERROR: pay better attention to the options menu!!"<<std::endl;
-				fun = 0;
-			}
-			else
-				std::cout<<"Input error: please read your options again"<<std::endl;
-		}
-		
+		else
+			print_err(fun);
 	}
 	return 0;
 }

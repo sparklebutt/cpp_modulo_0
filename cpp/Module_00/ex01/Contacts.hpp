@@ -6,12 +6,13 @@
 /*   By: araveala <araveala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 16:29:50 by araveala          #+#    #+#             */
-/*   Updated: 2024/11/21 18:54:10 by araveala         ###   ########.fr       */
+/*   Updated: 2024/11/26 11:19:20 by araveala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include <iostream>
+#include <string>
 
 class Contacts
 {
@@ -33,5 +34,4 @@ class Contacts
 		void	get_contact();
 		void	formatContact(int i);
 		std::string formatField(std::string& field);
-
 };

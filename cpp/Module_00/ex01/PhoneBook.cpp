@@ -6,19 +6,14 @@
 /*   By: araveala <araveala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 16:29:16 by araveala          #+#    #+#             */
-/*   Updated: 2024/11/21 21:01:25 by araveala         ###   ########.fr       */
+/*   Updated: 2024/11/28 11:08:05 by araveala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PhoneBook.hpp"
 #include "Contacts.hpp"
 
-/**
- * phonebook constructor body is defined with index set to 0, this is called a 
- * initializer list , its benefit is that the varaible gets set before entering
- * the body of the constructor which has a higher value when constructors maye 
- * contain more dtails that rely on varaibles in said list???
- */
+
 PhoneBook::PhoneBook() : index(0)
 {
 	std::cout << "PhoneBook is ready for input" << std::endl;	
@@ -27,9 +22,7 @@ PhoneBook::PhoneBook() : index(0)
 	
 }
 
-PhoneBook::~PhoneBook() {
-	std::cout << "PhoneBook has been destroyed" << std::endl;	
-}
+PhoneBook::~PhoneBook() { std::cout << "PhoneBook has been destroyed" << std::endl;	}
 
 /**
  * Checks if the given input number from user matches an index that has been 
@@ -41,7 +34,7 @@ Contacts& PhoneBook:: get_array(int num)
 {
 	if (isflag[num] == false)
 	{
-		std::cout<<"This index is empty"<<num + 1<<std::endl;
+		std::cout<<"Index "<<num + 1<<" is empty"<<std::endl;
 		return page[num];
 	}
 	return page[num];
@@ -56,16 +49,13 @@ Contacts& PhoneBook:: get_array(int num)
 void PhoneBook:: listAllContacts()
 {	
 	if (isflag[0] == false)
-	{
-		printf("no field please handle\n");
 		return ;
-	}
 	for (int i = 0; isflag[i] && i < 8; i++)
 		page[i].formatContact(i);
 }
 
 /**
- * We put the filled conatct instance into the contact array based on index
+ * We put the filled conatact instance into the contact array based on index
  * that wraps around back to 0 when we reach end of array
  */
 void PhoneBook::addtoPhoneBook(Contacts& contact)

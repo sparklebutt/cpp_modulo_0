@@ -6,13 +6,14 @@
 /*   By: araveala <araveala@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 16:29:27 by araveala          #+#    #+#             */
-/*   Updated: 2024/11/21 20:10:12 by araveala         ###   ########.fr       */
+/*   Updated: 2024/11/26 11:55:54 by araveala         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include <iostream>
 #include "Contacts.hpp"
+#include <cstdlib>
 
 class PhoneBook
 {
@@ -31,3 +32,4 @@ class PhoneBook
 void	addcontact(PhoneBook& phonebook);
 void	searchContact(PhoneBook& phonebook);
 void	clear_output();
+void	checkStream();

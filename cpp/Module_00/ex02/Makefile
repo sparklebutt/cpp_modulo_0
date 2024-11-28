@@ -5,31 +5,35 @@
 #                                                     +:+ +:+         +:+      #
 #    By: araveala <araveala@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/11/11 12:10:16 by araveala          #+#    #+#              #
-#    Updated: 2024/11/27 14:38:19 by araveala         ###   ########.fr        #
+#    Created: 2024/11/26 17:04:04 by araveala          #+#    #+#              #
+#    Updated: 2024/11/28 11:29:49 by araveala         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CPP = c++
-CPPFLAGS = -Wall -Wextra -Werror -std=c++11
+CPPFLAGS = -Wall -Wextra -Werror -std=c++11 -Wno-deprecated-declarations
+BUILDDIR = build/
 
-CPPFILES = megaphone.cpp
+CPPFILES = Account.cpp tests.cpp
+OFILES = $(addprefix $(BUILDDIR), $(CPPFILES:.cpp=.o))
+EXEC = accounts
 
-OFILES = $(CPPFILES:.cpp=.o)
-
-EXEC = megaphone
-
-all: $(EXEC)
+all: $(BUILDDIR) $(EXEC)
 	@echo "\033[0;95m Creating executable\033[0m"
 
-%.o: %.cpp
+$(BUILDDIR)%.o: %.cpp
 	$(CPP) $(CPPFLAGS) -g -c $< -o $@
 
 $(EXEC): $(OFILES)
-	$(CPP) $(CPPFLAGS) $(CPPFILES) -o $(EXEC)
+	$(CPP) $(CPPFLAGS) $(OFILES) -o $(EXEC) 
 
+$(BUILDDIR):
+	@echo "\033[0;91m Building folder\033[0m"
+	mkdir -p $(BUILDDIR)
+	
 clean:
 	@echo "\033[0;93m Cleaning ofiles\033[0m"
+	rm -rf $(BUILDDIR)
 	rm -rf $(OFILES)
 
 fclean: clean
